@@ -10,10 +10,10 @@ namespace TextOperationServices
 {
     public class TextService : ITextService
     {
-        public string ReturnNumberOfWordsInText(string text)
+        public int ReturnNumberOfWordsInText(string text)
         {
             int regexCount = Regex.Matches(text, @"[A-Za-z0-9-']+").Count;
-            return $"number of words: {regexCount} ";
+            return  regexCount;
         }
 
         private string ReturnNumberOfWordsInTextTest(string text)

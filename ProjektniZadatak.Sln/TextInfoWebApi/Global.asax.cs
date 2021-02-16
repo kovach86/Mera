@@ -17,6 +17,14 @@ namespace TextInfoWebApi
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterType<TextService>().As<ITextService>().InstancePerLifetimeScope();
+            containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            var container = containerBuilder.Build();
+            var webApiResolver = new AutofacWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
         }
     }
 }

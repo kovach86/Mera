@@ -4,8 +4,11 @@ using MainProgram.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Repositories.Interfaces;
+using Repositories.Repos;
 using Services;
 using Services.TextReaders;
+using TextOperationServices;
+using TextOperationServices.Interfaces;
 
 namespace UnitTests
 {
@@ -14,12 +17,14 @@ namespace UnitTests
     {
         private ISourceReader _sourceReaderFromFile;
         private ISourceReader _userInputReader;
+        private ITextService _textService;
 
         [TestInitialize]
         public void Initialize()
         {
             _sourceReaderFromFile = new FileContentReader();
             _userInputReader = new UserInputReader();
+            _textService = new TextService();
         }
 
         [TestMethod]
@@ -47,7 +52,15 @@ namespace UnitTests
 
             string correctFormedText = "some text description";
             Assert.AreEqual(true, TextChecker.CheckIfTextIsFormedCorrectly(correctFormedText));
+        }
+        
+        [TestMethod]
+        public void TestWordCounter()
+        {
+            string text = "long live rock 'n' roll";
+            int expected = 5;
 
+            Assert.AreEqual(expected, _textService.ReturnNumberOfWordsInText(text));
         }
     }
 }

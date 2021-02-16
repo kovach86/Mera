@@ -8,6 +8,6 @@ namespace TextOperationServices.Interfaces
 {
     public interface ITextService
     {
-        string ReturnNumberOfWordsInText(string text);
+        int ReturnNumberOfWordsInText(string text);
     }
 }

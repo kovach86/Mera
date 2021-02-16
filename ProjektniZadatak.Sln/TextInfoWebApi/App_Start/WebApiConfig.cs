@@ -25,14 +25,6 @@ namespace TextInfoWebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterType<TextService>().As<ITextService>();
-            containerBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-            var container = containerBuilder.Build();
-            var webApiResolver = new AutofacWebApiDependencyResolver(container);
-            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
         }
     }
 }

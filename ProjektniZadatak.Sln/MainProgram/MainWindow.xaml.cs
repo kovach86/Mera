@@ -118,7 +118,7 @@ namespace MainProgram
             string jsonString = "";
 
             var readerType = (ReaderType)selectedOption.Value;
-            var sourceTextReader = SourceReaderFacade.GetAppropriateReader(readerType);
+            var sourceTextReader = SourceReaderFactory.GetAppropriateReader(readerType);
 
             switch (selectedOption.Value)
             {

@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202102151331591_InitialCreate.designer.cs">
       <DependentUpon>202102151331591_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102161612471_AddedDateTimeToSavedTextTable.cs" />
+    <Compile Include="Migrations\202102161612471_AddedDateTimeToSavedTextTable.designer.cs">
+      <DependentUpon>202102161612471_AddedDateTimeToSavedTextTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102151331591_InitialCreate.resx">
       <DependentUpon>202102151331591_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161612471_AddedDateTimeToSavedTextTable.resx">
+      <DependentUpon>202102161612471_AddedDateTimeToSavedTextTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

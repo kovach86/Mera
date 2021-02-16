@@ -23,10 +23,10 @@ namespace TextInfoWebApi.Controllers
         }
 
         [HttpPost, Route("count-words")]
-        public string CountWords(SimpleDto dto)
+        public IHttpActionResult CountWords(SimpleDto dto)
         {
-            string result = _textService.ReturnNumberOfWordsInText(dto.Text);
-            return result;
+            string result =$"number of words: { _textService.ReturnNumberOfWordsInText(dto.Text)}";
+            return Ok(result);
         }
          
     }

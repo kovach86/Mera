@@ -18,7 +18,7 @@ namespace WebApiConsumers
             TokenApiUrl = "http://localhost:13203/token/get-token";
         }
 
-      protected async void CheckAndRetrieveToken()
+      protected async void CheckAndSetToken()
         {
             bool tokenOk = await ValidateToken();
             if (!tokenOk) SetToken();

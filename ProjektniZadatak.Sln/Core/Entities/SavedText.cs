@@ -15,5 +15,8 @@ namespace Core.Entities
 
         [DisplayName("Text")]
         public string TextValue { get; set; }
+
+        [DisplayName("Date")]
+        public DateTime? DateTimeOfText { get; set; }
     }
 }

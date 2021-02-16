@@ -19,12 +19,12 @@ namespace TextInfoWebApi.Controllers
         }
 
         [HttpGet, Route("validate")]
-        public IHttpActionResult ValidateToken(HttpActionContext actionContext)
+        public IHttpActionResult ValidateToken()
         {
              
             var token_value = Request.Headers.Authorization.Parameter;
             if (string.IsNullOrEmpty(token_value))
-                return Ok("Odbij");
+                return Ok("InvalidToken");
 
             return Ok();
         }

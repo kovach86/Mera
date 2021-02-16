@@ -45,16 +45,19 @@ namespace WebApiConsumers
 
         public async Task<string> GetResponseFromApi(string contentToSend)
         {
-            CheckAndRetrieveToken();
+            CheckAndSetToken();
             using (var client = new HttpClient())
             {
                 var transferObject = new SimpleDto { Text = contentToSend };
-                var content = new StringContent(JsonConvert.SerializeObject(transferObject), Encoding.UTF8, "application/json");
+                var contentBody = new StringContent(JsonConvert.SerializeObject(transferObject), Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
 
-                var response = await client.PostAsync($"{ApiUrl}/text-infos/count-words", content);
+                var response = await client.PostAsync($"{ApiUrl}/text-infos/count-words", contentBody);
                 if (!response.IsSuccessStatusCode)
+                {
                     CustomNLogger.LogException($"error occurred: \n{response.StatusCode} \n{response.RequestMessage.RequestUri}");
+                    return "There is currently error in communication with API";
+                }
 
                 return await response.Content.ReadAsStringAsync();
             }
