@@ -98,7 +98,7 @@ namespace MainProgram
             }
         }
 
-       
+
 
         #region helper methods
         private List<ComboBoxTemplate> GetComboBoxTemplate()
@@ -116,23 +116,24 @@ namespace MainProgram
         private string ExtractText(ComboBoxTemplate selectedOption)
         {
             string jsonString = "";
-            var readerType = Enum.TryParse(selectedOption.Value.ToString(), out ReaderType type);
-            var sourceTextReader = new SourceReader().GetAppropriateReader(type);
 
-            if (selectedOption.Value == 3 && string.IsNullOrEmpty(txtFileName.SelectedText))
-            {
-                jsonString = sourceTextReader.GetTextFromSource(txtFileName.SelectedText);
-            }
+            var readerType = (ReaderType)selectedOption.Value;
+            var sourceTextReader = SourceReaderFacade.GetAppropriateReader(readerType);
 
-            if (selectedOption.Value == 2 && dgTexts.SelectedItem != null)
+            switch (selectedOption.Value)
             {
-                var selectedDataGriItem = dgTexts.SelectedItem as SavedText;
-                jsonString = _savedTextRepository.GetById(selectedDataGriItem.Id).TextValue;
-            }
-
-            if (selectedOption.Value == 1 && !string.IsNullOrEmpty(txtUserInput.Text))
-            {
-                jsonString = txtUserInput.Text;
+                case 3 when !string.IsNullOrEmpty(txtFileName.Text):
+                    jsonString = sourceTextReader.GetTextFromSource(txtFileName.Text);
+                    break;
+                case 2 when dgTexts.SelectedItem != null:
+                    {
+                        var selectedDataGriItem = dgTexts.SelectedItem as SavedText;
+                        jsonString = _savedTextRepository.GetById(selectedDataGriItem.Id).TextValue;
+                        break;
+                    }
+                case 1 when !string.IsNullOrEmpty(txtUserInput.Text):
+                    jsonString = txtUserInput.Text;
+                    break;
             }
 
             return jsonString;
@@ -150,10 +151,16 @@ namespace MainProgram
                 return;
             }
 
-            //TODO:: initiate request sending
-            TextWebApi webApi = new TextWebApi(configApiKeyName, "xasdasdASFASGAGADasdasfgads1231241afasfafas");
-            TextWebApi webApiWithoutToken = new TextWebApi(configApiKeyName, null);
 
+            IWebApiService webApi = new TextWebApi(configApiKeyName, "xasdasdASFASGAGADasdasfgads1231241afasfafas");
+            IWebApiService webApiWithoutToken = new TextWebApi(configApiKeyName, null);
+
+            if (!webApi.ServiceRunning())
+            {
+                MessageBox.Show("API is currently down");
+                return;
+            }
+                
             string respo = await webApi.GetResponseFromApi(textToBeSent);
             MessageBox.Show(respo);
 

@@ -28,9 +28,9 @@ namespace MainProgram
             base.OnStartup(e);
 
             var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterType<SavedTextRepository>().As<ISavedTextRepository>();
             containerBuilder.RegisterType<SavedTextDbContext>().AsSelf().SingleInstance();
-            containerBuilder.RegisterType<TextService>().As<ITextService>();
+            containerBuilder.RegisterType<SavedTextRepository>().As<ISavedTextRepository>().InstancePerLifetimeScope();
+            containerBuilder.RegisterType<TextService>().As<ITextService>().InstancePerLifetimeScope();
 
             var containerInjector = containerBuilder.Build();
             var main = new MainWindow(containerInjector.Resolve<ISavedTextRepository>());

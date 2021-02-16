@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GetTokenController.cs" />
+    <Compile Include="Controllers\HealthCheckController.cs" />
     <Compile Include="Controllers\TextActionsController.cs" />
     <Compile Include="CustomSessionFilters\CheckTokenAuthorization.cs" />
     <Compile Include="Global.asax.cs">

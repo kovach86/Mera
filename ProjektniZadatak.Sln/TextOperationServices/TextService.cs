@@ -28,7 +28,6 @@ namespace TextOperationServices
             #endregion
 
             #region RegEx way
-            //int regexCount = Regex.Matches(text, @"[A-Za-z0-9-']+").Count;
             int regexCount = Regex.Matches(text, @"[A-Za-z0-9-']+").Count;
             result += $"\n using Regex: {regexCount} ";
             #endregion

@@ -15,7 +15,7 @@ namespace WebApiConsumers
 
         public TokenChecker(string token)
         {
-            TokenApiUrl = $"http://localhost:13203/token/get-token";
+            TokenApiUrl = "http://localhost:13203/token/get-token";
         }
 
       protected async void CheckAndRetrieveToken()
@@ -42,7 +42,6 @@ namespace WebApiConsumers
             {
                 Token = await client.GetStringAsync(TokenApiUrl);
             }
-
         }
     }
 }

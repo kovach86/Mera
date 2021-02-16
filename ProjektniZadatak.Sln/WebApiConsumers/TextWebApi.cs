@@ -15,6 +15,8 @@ namespace WebApiConsumers
     public interface IWebApiService
     {
         Task<string> GetResponseFromApi(string resource);
+
+        bool ServiceRunning();
     }
 
     public class TextWebApi : TokenChecker, IWebApiService
@@ -28,16 +30,15 @@ namespace WebApiConsumers
             Token = token;
         }
 
-        public bool ServiceRuning()
+        public bool ServiceRunning()
         {
              
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync($"{ApiUrl}/status");
+                var response = client.GetAsync($"{ApiUrl}/status/check");
                 if (!response.Result.IsSuccessStatusCode)
                     CustomNLogger.LogException($"TextWebApi at {ApiUrl} is down");
-
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                 
                 return response.Result.IsSuccessStatusCode;
             }
         }
@@ -47,11 +48,11 @@ namespace WebApiConsumers
             CheckAndRetrieveToken();
             using (var client = new HttpClient())
             {
-                var transeferObject = new SimpleDto { Text = contentToSend };
-                var content = new StringContent(JsonConvert.SerializeObject(transeferObject), Encoding.UTF8, "application/json");
+                var transferObject = new SimpleDto { Text = contentToSend };
+                var content = new StringContent(JsonConvert.SerializeObject(transferObject), Encoding.UTF8, "application/json");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
 
-                var response = await client.PostAsync($"{ApiUrl}/count-words", content);
+                var response = await client.PostAsync($"{ApiUrl}/text-infos/count-words", content);
                 if (!response.IsSuccessStatusCode)
                     CustomNLogger.LogException($"error occurred: \n{response.StatusCode} \n{response.RequestMessage.RequestUri}");
 
