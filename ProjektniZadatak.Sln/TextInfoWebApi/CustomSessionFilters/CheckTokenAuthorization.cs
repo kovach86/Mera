@@ -12,7 +12,7 @@ namespace TextInfoWebApi.CustomSessionFilters
     {
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-             var tokenParam = actionExecutedContext.Request.Headers.Authorization.Parameter;
+            var tokenParam = actionExecutedContext.Request.Headers.Authorization.Parameter;
             if (tokenParam == null)
             {
                 CustomNLogger.LogException("Token authorization failed");
